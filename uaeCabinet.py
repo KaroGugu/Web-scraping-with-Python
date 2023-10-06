@@ -7,11 +7,22 @@ from selenium.webdriver.common.by import By
 import time
 import csv
 from selenium.common.exceptions import NoSuchElementException
- 
+
+from datetime import date
+today = date.today()
+print("Today's date:", today)
+csv_file = r'C:\Users\Karolina.Gugudis\Desktop\UAE Cabinet.csv_'+ str(today) + '.csv'
+
+
+
 driver = webdriver.Chrome()
+#Creating/Opening a file to write the data in. Please change the path to the correct file on your computer.
+
+with open(csv_file, 'w', encoding="utf-8") as f:
+    driver = webdriver.Chrome()
 
 #Creating/Opening a file to write the data in. Please change the path to the correct file on your computer.
-with open(r'C:\Users\Karolina.Gugudis\Desktop\UAE Cabinet.csv', 'w', encoding="utf-8") as f: # w is for writing a new file
+with open(r'C:\Users\Karolina.Gugudis\Desktop\UAE Cabinet.csv_', 'w', encoding="utf-8") as f: # w is for writing a new file
     f.write('Cabinet Members \n')
     
 driver.get('https://uaecabinet.ae/en/cabinet-members?page=1')
@@ -38,11 +49,12 @@ for link in allprofileshyperlinks:
         x = x + str(i) + ']/div[2]/h3'
         # //*[@id="homeWrapper"]/div/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/h3
         # //*[@id="homeWrapper"]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/h3
-        profileurl = driver.find_element(By.XPATH,x).text 
-        print(profileurl)
+        name = driver.find_element(By.XPATH,x).text 
+        print(name)
  
         
-        with open(r'C:\Users\Karolina.Gugudis\Desktop\UAE Cabinet.csv', 'a', encoding="utf-8") as f: # a is for appending information to the file
-            f.write(profileurl + '\n')
+        with open(r'C:\Users\Karolina.Gugudis\Desktop\UAE Cabinet.csv_', 'a', encoding="utf-8") as f: # a is for appending information to the file
+            f.write(name + '\n')
  
 print('the job is done')
+
